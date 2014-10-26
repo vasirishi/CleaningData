@@ -1,0 +1,287 @@
+---
+title: "CleaningData"
+author: "Kannan Subbiah"
+date: "October 26, 2014"
+output: html_document
+---
+
+Codebook describing the variables and dat and any transformations that were performed for cleaning up the data.
+
+git Repository:-
+https://github.com/vasirishi/CleaningData
+
+
+ActivityLabels
+    Type:		
+		Dataframe
+	Description:	
+		Contains two columns 1. ActivityCode, 2.Activity
+        
+> ActivityLabels
+  ActivityCode           Activity
+1            1            WALKING
+2            2   WALKING_UPSTAIRS
+3            3 WALKING_DOWNSTAIRS
+4            4            SITTING
+5            5           STANDING
+6            6             LAYING
+> 
+
+FeatureLabels
+	Type:	
+		Dataframe
+	Description:
+		Contains two columns 1. FeatureID, 2. FeatureDescription.
+
+TrainSubject
+	Type:		
+		Dataframe
+	Description:	
+		Contains the Subject Id of train data.
+> unique(TrainSubject)
+     SubjectId
+1            1
+348          3
+689          5
+991          6
+1316         7
+1624         8
+1905        11
+2221        14
+2544        15
+2872        16
+3238        17
+3606        19
+3966        21
+4374        22
+4695        23
+5067        25
+5476        26
+5868        27
+6244        28
+6626        29
+6970        30
+>
+
+TestSubject
+	Type:		
+		Dataframe
+	Description:	
+		Contains the Subject Id of test data.
+
+>unique(TestSubject)
+     SubjectId
+1            2
+303          4
+620          9
+908         10
+1202        12
+1522        13
+1849        18
+2213        20
+2567        24
+
+TestY
+	Type:		
+		Dataframe
+	Description:	
+		Contains the test activity code for all the Test data.
+This code is needed to identify the activity the subject performed when the data was collected.  The TestY column value  is mapped to the ActivityLabels$ActivityCode
+> unique(TestY)
+    V1
+1    5
+32   4
+56   6
+80   1
+110  3
+134  2
+
+
+
+MeanOnly
+	Type:		
+		factor
+	Description:	
+		Contains the column names that are ending with mean().
+> MeanOnly
+[1] "tBodyAccMag.mean.."          "tGravityAccMag.mean.."      
+[3] "tBodyAccJerkMag.mean.."      "tBodyGyroMag.mean.."        
+[5] "tBodyGyroJerkMag.mean.."     "fBodyAccMag.mean.."         
+[7] "fBodyBodyAccJerkMag.mean.."  "fBodyBodyGyroMag.mean.."    
+[9] "fBodyBodyGyroJerkMag.mean.."
+>
+		
+
+StdOnly
+	Type:		
+		factor
+	Description:	
+		Contains the column names that are ending with std().
+
+> StdOnly
+[1] "tBodyAccMag.std.."          "tGravityAccMag.std.."      
+[3] "tBodyAccJerkMag.std.."      "tBodyGyroMag.std.."        
+[5] "tBodyGyroJerkMag.std.."     "fBodyAccMag.std.."         
+[7] "fBodyBodyAccJerkMag.std.."  "fBodyBodyGyroMag.std.."    
+[9] "fBodyBodyGyroJerkMag.std.."
+>
+''''
+
+TrainX
+	Type:		
+		dataframe
+	Description:	
+Contains the actual measured values for those 561 different features.
+After reading the file, we bind the Train Subject Id, Train Activity and Type as “Train” as part of the dataframe.
+
+
+
+TestX
+	Type:		
+		Dataframe
+	Description:	
+Contains the actual measured values for those 561 different features.
+After reading the file, we bind the Test Subject Id, Test Activity and Type as “Test” as part of the dataframe.
+
+
+
+CombinedData
+	Type:		
+		Dataframe
+	Description:	
+Contains the data merged from both TestX and TrainX.
+The column names remain the same as TestX or TrainX.
+This combined dataframe will be used for tidying the data and arriving at the results needed in Question 4.
+
+MyData
+	Type:		
+		Dataframe
+	Description:	
+Temporary dataframe that holds the columns, Subject, Activity and Type from the Combined Data.  Then we extract the column names with end with mean or std from the combined Data and bind it to MyData for further processing.
+
+
+
+GatherData / SeparateData
+	Type:		
+		Dataframe
+	Description:	
+Temporary dataframe that cleans up the data stored in columns instead of rows.
+For Eg: 
+gather(Mean, MeanValue,tBodyAccMag.mean:fBodyBodyGyroJerkMag.mean)
+
+would create just two columns 1. Mean and 2. MeanValue.
+Mean would contain all the feature names and MeanValue would  contain the actual value itself
+
+Data frame MyData looks like this:-
+> names(MyData)
+ [1] "Subject"                   "Activity"                  "Type"                      "tBodyAccMag.mean"          "tGravityAccMag.mean"      
+ [6] "tBodyAccJerkMag.mean"      "tBodyGyroMag.mean"         "tBodyGyroJerkMag.mean"     "fBodyAccMag.mean"          "fBodyBodyAccJerkMag.mean" 
+[11] "fBodyBodyGyroMag.mean"     "fBodyBodyGyroJerkMag.mean" "tBodyAccMag.std"           "tGravityAccMag.std"        "tBodyAccJerkMag.std"      
+[16] "tBodyGyroMag.std"          "tBodyGyroJerkMag.std"      "fBodyAccMag.std"           "fBodyBodyAccJerkMag.std"   "fBodyBodyGyroMag.std"     
+[21] "fBodyBodyGyroJerkMag.std" 
+>
+
+> head(MyData,1)
+  Subject Activity Type tBodyAccMag.mean tGravityAccMag.mean tBodyAccJerkMag.mean tBodyGyroMag.mean tBodyGyroJerkMag.mean fBodyAccMag.mean
+1       2  WALKING Test       -0.8669294          -0.8669294           -0.9297665        -0.7955439            -0.9251949       -0.7909464
+  fBodyBodyAccJerkMag.mean fBodyBodyGyroMag.mean fBodyBodyGyroJerkMag.mean tBodyAccMag.std tGravityAccMag.std tBodyAccJerkMag.std tBodyGyroMag.std
+1               -0.8950612              -0.77061                -0.8901655      -0.7051911         -0.7051911          -0.8959942       -0.7620732
+  tBodyGyroJerkMag.std fBodyAccMag.std fBodyBodyAccJerkMag.std fBodyBodyGyroMag.std fBodyBodyGyroJerkMag.std
+1           -0.8943436       -0.711074              -0.8963596           -0.7971128               -0.9073076
+>
+
+After 
+GatherData <- MyData %>%
+     gather(Mean, MeanValue,tBodyAccMag.mean:fBodyBodyGyroJerkMag.mean) %>%
+     gather(Std, StdValue, tBodyAccMag.std:fBodyBodyGyroJerkMag.std)
+
+names(GatherData)  <- c("Subject", "Activity", "Type", "MeanType", "MeanValue", "StdType", "StdValue")
+
+> names(GatherData)
+[1] "Subject"   "Activity"  "Type"      "MeanType"  "MeanValue" "StdType"   "StdValue" 
+
+
+> head(GatherData,1)
+  Subject Activity Type         MeanType  MeanValue         StdType   StdValue
+1       2  WALKING Test tBodyAccMag.mean -0.8669294 tBodyAccMag.std -0.7051911
+>
+
+
+So the data is nicely gathered in to 4 columns, MeanType, MeanValue, StdType, StdValue.
+
+MeanType has values ending with .mean.  Eg: tBodyAccMag.mean.  We need to separate the .mean from the value.
+
+SeparateData <- GatherData %>%
+    separate(MeanType, into = c("Feature","Mean"), sep = "\\.") %>%
+    separate(StdType, into = c("StdName", "Std"), sep = "\\.")
+
+The above command seprates the value in to tBodyAccMag under Feature name and StdName column and “mean” under “Mean” , std under Std column.  
+Now that Mean column and Std column are redundant we can drop them.
+> names(SeparateData)
+[1] "Subject"   "Activity"  "Type"      "Feature"   "Mean"      "MeanValue" "StdName"   "Std"       "StdValue" 
+> head(SeparateData)
+  Subject Activity Type     Feature Mean  MeanValue     StdName Std   StdValue
+1       2  WALKING Test tBodyAccMag mean -0.8669294 tBodyAccMag std -0.7051911
+2       2  WALKING Test tBodyAccMag mean -0.9689614 tBodyAccMag std -0.9539024
+3       2  WALKING Test tBodyAccMag mean -0.9762282 tBodyAccMag std -0.9790834
+4       2  WALKING Test tBodyAccMag mean -0.9743245 tBodyAccMag std -0.9770159
+5       2  WALKING Test tBodyAccMag mean -0.9758356 tBodyAccMag std -0.9768934
+6       2  WALKING Test tBodyAccMag mean -0.9817163 tBodyAccMag std -0.9777039
+>
+
+Following code removes those redundant columns Mean and Std which has values “mean” and “std”.   StdName and Feature are redundant. So we can drop StdName as well.
+
+SeparateData <- subset(SeparateData, select = -c(Mean,StdName,Std))
+
+
+> names(SeparateData)
+[1] "Subject"   "Activity"  "Type"      "Feature"   "MeanValue" "StdValue" 
+> head(SeparateData)
+  Subject Activity Type     Feature  MeanValue   StdValue
+1       2  WALKING Test tBodyAccMag -0.8669294 -0.7051911
+2       2  WALKING Test tBodyAccMag -0.9689614 -0.9539024
+3       2  WALKING Test tBodyAccMag -0.9762282 -0.9790834
+4       2  WALKING Test tBodyAccMag -0.9743245 -0.9770159
+5       2  WALKING Test tBodyAccMag -0.9758356 -0.9768934
+6       2  WALKING Test tBodyAccMag -0.9817163 -0.9777039
+>
+
+TidyData
+	Type:		
+		Dataframe
+	Description:	
+		TidyData holds the final result that is needed as part of Question 5.
+We need to summarize the average of each variable for each activity and each subject.
+
+Following Code:_
+
+TidyData <- SeparateData %>%
+     group_by(Subject, Activity, Feature) %>%
+     select(MeanValue, StdValue) %>%
+     summarise(Mean = mean(MeanValue), StandardDeviation = mean(StdValue))
+
+
+SeparateData is grouped by Subject, Activity and Feature first.
+We select MeanValue ( which is the mean of all features ) and StdValue ( which is the standard deviation of all features ) and create two new columns, Mean and StandardDeviation containing the mean  of all features grouped by Subject/Activity/Feature. And Standard Deviation grouped by Subject/Activity/Feature.
+
+The final output looks likes this:-
+
+
+> names(TidyData)
+[1] "Subject"           "Activity"          "Feature"           "Mean"              "StandardDeviation"
+> head(TidyData)
+Source: local data frame [6 x 5]
+Groups: Subject, Activity
+
+  Subject Activity              Feature       Mean StandardDeviation
+1       1  WALKING          fBodyAccMag -0.4784485        -0.5606585
+2       1  WALKING  fBodyBodyAccJerkMag -0.4990758        -0.5606585
+3       1  WALKING fBodyBodyGyroJerkMag -0.6459707        -0.5606585
+4       1  WALKING     fBodyBodyGyroMag -0.5350028        -0.5606585
+5       1  WALKING      tBodyAccJerkMag -0.5454316        -0.5606585
+6       1  WALKING          tBodyAccMag -0.4536329        -0.5606585
+>
+
+The TidyData is written to TidyData.csv which can be used for further reports / charts.
+
+
