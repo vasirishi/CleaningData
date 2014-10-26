@@ -195,7 +195,7 @@ SeparateData <- subset(SeparateData, select = -c(Mean,StdName,Std))
 TidyData <- SeparateData %>%
      group_by(Subject, Activity, Feature) %>%
      select(MeanValue, StdValue) %>%
-     summarise(Mean = mean(MeanValue), StandardDeviation = mean(StdValue))
+     summarise(AverageOfmean = mean(MeanValue), AverageOfStd = mean(StdValue))
 
 write.table(TidyData, file="TidyData.txt", row.names=FALSE, quote = FALSE)
 
