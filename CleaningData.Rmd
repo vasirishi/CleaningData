@@ -13,6 +13,9 @@ cleaning up the data.
 git Repository:-
 https://github.com/vasirishi/CleaningData
 
+Variable Declrations used in run_analysis.R
+-------------------------------------------
+
 
 **ActivityLabels**
 
@@ -157,9 +160,9 @@ This code is needed to identify the activity the subject performed when the data
 	Type:		
 		dataframe
 	Description:	
-Contains the actual measured values for those 561 different features.
-After reading the file, we bind the Train Subject Id, Train Activity and Type as “Train” as part of the dataframe.
-
+        Contains the actual measured values for those 561 different features.
+        After reading the file, we bind the Train Subject Id, Train Activity and 
+        Type as “Train” as part of         the dataframe.
 
 
 **TestX**
@@ -167,8 +170,9 @@ After reading the file, we bind the Train Subject Id, Train Activity and Type as
 	Type:		
 		Dataframe
 	Description:	
-Contains the actual measured values for those 561 different features.
-After reading the file, we bind the Test Subject Id, Test Activity and Type as “Test” as part of the dataframe
+        Contains the actual measured values for those 561 different features.
+        After reading the file, we bind the Test Subject Id, Test Activity and 
+        Type as “Test” as part of the dataframe
 
 
 
@@ -177,17 +181,20 @@ After reading the file, we bind the Test Subject Id, Test Activity and Type as �
 	Type:		
 		Dataframe
 	Description:	
-Contains the data merged from both TestX and TrainX.
-The column names remain the same as TestX or TrainX.
-This combined dataframe will be used for tidying the data and arriving at the results needed in Question 4.
+        Contains the data merged from both TestX and TrainX.
+        The column names remain the same as TestX or TrainX.
+        This combined dataframe will be used for tidying the data and arriving at the 
+        results needed in     Question 4.
 
 
 **MyData**
 
 	Type:		
 		Dataframe
-	Description:	
-Temporary dataframe that holds the columns, Subject, Activity and Type from the Combined Data.  Then we extract the column names with end with mean or std from the combined Data and bind it to MyData for further processing.
+	Description:	            
+        Temporary dataframe that holds the columns, Subject, Activity and Type from 
+        the Combined Data.  Then we extract the column names with end with mean or std 
+        from the combined Data and bind it to MyData for further processing.
 
 
 
@@ -197,13 +204,14 @@ Temporary dataframe that holds the columns, Subject, Activity and Type from the 
 		Dataframe
 	Description:	
         Temporary dataframe that cleans up the data stored in columns instead of rows.
+        
 ```        
 For Eg: 
 gather(Mean, MeanValue,tBodyAccMag.mean:fBodyBodyGyroJerkMag.mean)
 ```
 
-    would create just two columns 1. Mean and 2. MeanValue.
-    Mean would contain all the feature names and MeanValue would  contain the actual value itself
+        would create just two columns 1. Mean and 2. MeanValue.
+        Mean would contain all the feature names and MeanValue would  contain the actual value itself
 
 ```
 Data frame MyData looks like this:-
@@ -303,9 +311,10 @@ SeparateData <- subset(SeparateData, select = -c(Mean,StdName,Std))
 	Description:	
 		TidyData holds the final result that is needed as part of Question 5.
         We need to summarize the average of each variable for each activity and each subject.
-
-        Following Code:_
 ```
+        Following Code summarizes by Subject, Activity, Feature and calculates
+        average of all Mean and Standard Deviation Values for all features.
+        
         TidyData <- SeparateData %>%
             group_by(Subject, Activity, Feature) %>%
             select(MeanValue, StdValue) %>%
