@@ -342,6 +342,6 @@ Groups: Subject, Activity
 > 
 ```
 
-The TidyData is written to TidyData.csv which can be used for further reports / charts.
+The TidyData is written to TidyData.txt which can be used for further reports / charts.
 
 ---------------------------------------------------------------------------------
