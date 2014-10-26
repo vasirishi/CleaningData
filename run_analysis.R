@@ -197,5 +197,5 @@ TidyData <- SeparateData %>%
      select(MeanValue, StdValue) %>%
      summarise(Mean = mean(MeanValue), StandardDeviation = mean(StdValue))
 
-write.csv(TidyData, file="TidyData.txt", row.names=FALSE, quote = FALSE)
+write.table(TidyData, file="TidyData.txt", row.names=FALSE, quote = FALSE)
 
