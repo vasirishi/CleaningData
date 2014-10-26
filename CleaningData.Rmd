@@ -267,20 +267,24 @@ We select MeanValue ( which is the mean of all features ) and StdValue ( which i
 The final output looks likes this:-
 
 
-> names(TidyData)
-[1] "Subject"           "Activity"          "Feature"           "Mean"              "StandardDeviation"
-> head(TidyData)
-Source: local data frame [6 x 5]
+> TidyData
+Source: local data frame [360 x 5]
 Groups: Subject, Activity
 
-  Subject Activity              Feature       Mean StandardDeviation
-1       1  WALKING          fBodyAccMag -0.4784485        -0.5606585
-2       1  WALKING  fBodyBodyAccJerkMag -0.4990758        -0.5606585
-3       1  WALKING fBodyBodyGyroJerkMag -0.6459707        -0.5606585
-4       1  WALKING     fBodyBodyGyroMag -0.5350028        -0.5606585
-5       1  WALKING      tBodyAccJerkMag -0.5454316        -0.5606585
-6       1  WALKING          tBodyAccMag -0.4536329        -0.5606585
->
+   Subject Activity              Feature AverageOfmean AverageOfStd
+1        1  WALKING          fBodyAccMag    -0.4784485   -0.5606585
+2        1  WALKING  fBodyBodyAccJerkMag    -0.4990758   -0.5606585
+3        1  WALKING fBodyBodyGyroJerkMag    -0.6459707   -0.5606585
+4        1  WALKING     fBodyBodyGyroMag    -0.5350028   -0.5606585
+5        1  WALKING      tBodyAccJerkMag    -0.5454316   -0.5606585
+6        1  WALKING          tBodyAccMag    -0.4536329   -0.5606585
+7        1  WALKING     tBodyGyroJerkMag    -0.6395174   -0.5606585
+8        1  WALKING         tBodyGyroMag    -0.4754048   -0.5606585
+9        1  WALKING       tGravityAccMag    -0.4536329   -0.5606585
+10       2  WALKING          fBodyAccMag    -0.5145699   -0.6303758
+..     ...      ...                  ...           ...          ...
+> 
+
 
 The TidyData is written to TidyData.csv which can be used for further reports / charts.
 
