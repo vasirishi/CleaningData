@@ -13,7 +13,7 @@ cleaning up the data.
 git Repository:-
 https://github.com/vasirishi/CleaningData
 
-Variable Declrations used in run_analysis.R
+Variable Declarations used in run_analysis.R
 -------------------------------------------
 
 
